@@ -110,4 +110,10 @@ public class PlayerServiceImpl implements IPlayerService {
 		return new ArrayList<>(playerMap.values());
 	}
 
+	@Override
+	public Player addPlayer(String name) {
+		Player player = new Player(IdFactory.getId(), name);
+		return playerMap.put(player.getId(), player);
+	}
+
 }

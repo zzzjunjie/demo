@@ -1,7 +1,9 @@
 package com.example.demo.player.controller;
 
 
+import com.example.demo.player.constant.ResultConst;
 import com.example.demo.player.dto.AddPlayerExperienceReq;
+import com.example.demo.player.dto.AddPlayerReq;
 import com.example.demo.player.dto.GetPlayersReq;
 import com.example.demo.player.entity.Player;
 import com.example.demo.player.service.IPlayerService;
@@ -47,9 +49,9 @@ public class PlayerController {
 	public String addPlayerExperience(@RequestBody AddPlayerExperienceReq req) {
 		boolean b = playerService.addPlayerExperience(req.getId(), req.getAddValue());
 		if (b) {
-			return ResultUtils.successWithData("添加经验成功");
+			return ResultUtils.successWithData(ResultConst.ADD_SUCCESS);
 		} else {
-			return ResultUtils.errorWithData("添加经验失败");
+			return ResultUtils.errorWithData(ResultConst.ERROR_SUCCESS);
 		}
 	}
 
@@ -57,6 +59,16 @@ public class PlayerController {
 	public String getAll() {
 		List<Player> all = playerService.getAll();
 		return ResultUtils.successWithData(all);
+	}
+
+	@PostMapping("addPlayer")
+	public String addPlayer(@RequestBody AddPlayerReq req) {
+		Player player = playerService.addPlayer(req.getName());
+		if (player != null) {
+			return ResultUtils.successWithData(ResultConst.ADD_SUCCESS);
+		} else {
+			return ResultUtils.errorWithData(ResultConst.ERROR_SUCCESS);
+		}
 	}
 
 }

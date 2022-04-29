@@ -44,4 +44,13 @@ public interface IPlayerService {
 	 * @return 所有玩家信息列表
 	 */
 	List<Player> getAll();
+
+	/**
+	 * 创建玩家
+	 *
+	 * @param name 玩家名称
+	 * @return 玩家信息
+	 */
+	Player addPlayer(String name);
+
 }
