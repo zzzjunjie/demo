@@ -1,37 +1,38 @@
 package com.example.demo.player.service.impl;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.player.constant.RequestPathConst;
 import com.example.demo.player.entity.Player;
 import com.example.demo.player.request.AddPlayerExperienceReq;
-import com.example.demo.player.request.AddPlayerReq;
 import com.example.demo.player.service.IPlayerServerBridging;
 import com.example.demo.player.utils.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
 
 
+/**
+ * 对接玩家系统
+ *
+ * @author zhoujunjie
+ */
 @Slf4j
 @Service
 public class PlayerServerBridgingImpl implements IPlayerServerBridging {
 
-	@Value("${server.port:8083}")
-	public String PORT;
+	private final String URL = "http://localhost:";
 
-	private String URL = "http://localhost:";
+	@Value("${server.port:8083}")
+	public String port;
 
 	@Resource
 	private RestTemplate restTemplate;
@@ -46,7 +47,7 @@ public class PlayerServerBridgingImpl implements IPlayerServerBridging {
 	public Player getPlayerById(int id) {
 		Map<String, Integer> reqParam = new HashMap<>();
 		reqParam.put("id", id);
-		ResponseEntity<String> playerResponseEntity = this.restTemplate.getForEntity(URL + PORT + RequestPathConst.PlayerController.GET_PLAYERS, String.class, reqParam);
+		ResponseEntity<String> playerResponseEntity = this.restTemplate.getForEntity(URL + port + RequestPathConst.PlayerController.GET_PLAYERS, String.class, reqParam);
 		if (!playerResponseEntity.getStatusCode().is2xxSuccessful()) {
 			log.error("请求获取玩家数据异常异常,玩家ID:[{}],异常消息:[{}]", id, playerResponseEntity.getBody());
 			return null;
@@ -82,7 +83,7 @@ public class PlayerServerBridgingImpl implements IPlayerServerBridging {
 
 	private Boolean addPlayerExperience1(int id, int addValue) {
 		AddPlayerExperienceReq addPlayerExperienceReq = new AddPlayerExperienceReq(id, addValue);
-		ResponseEntity<String> playerResponseEntity = this.restTemplate.postForEntity(URL + PORT + RequestPathConst.PlayerController.ADD_PLAYER_EXPERIENCE, addPlayerExperienceReq, String.class);
+		ResponseEntity<String> playerResponseEntity = this.restTemplate.postForEntity(URL + port + RequestPathConst.PlayerController.ADD_PLAYER_EXPERIENCE, addPlayerExperienceReq, String.class);
 		if (!playerResponseEntity.getStatusCode().is2xxSuccessful()) {
 			log.error("请求新增玩家经验异常,玩家ID:[{}],异常消息:[{}]", id, playerResponseEntity.getBody());
 			return false;
