@@ -3,6 +3,8 @@ package com.example.demo.player.service;
 
 import com.example.demo.player.entity.Player;
 
+import java.util.List;
+
 
 /**
  * 玩家操作接口
@@ -16,5 +18,22 @@ public interface IPlayerService {
 	 * @return 玩家信息
 	 */
 	Player getPlayer(int id);
+
+	/**
+	 * 获取玩家信息列表
+	 *
+	 * @param ids 玩家ID列表
+	 * @return 玩家信息列表
+	 */
+	List<Player> getPlayers(List<Integer> ids);
+
+	/**
+	 * 添加玩家经验
+	 *
+	 * @param id       玩家ID
+	 * @param addValue 经验新增值
+	 * @return TRUE:新增成功 FALSE:新增失败
+	 */
+	boolean addPlayerExperience(int id, int addValue);
 
 }

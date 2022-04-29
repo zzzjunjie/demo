@@ -24,4 +24,14 @@ public class Player {
 	 */
 	private String name;
 
+	/**
+	 * 玩家经验
+	 */
+	private int experience;
+
+	public Player(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 }
