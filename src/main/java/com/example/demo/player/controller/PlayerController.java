@@ -6,7 +6,6 @@ import com.example.demo.player.dto.GetPlayersReq;
 import com.example.demo.player.entity.Player;
 import com.example.demo.player.service.IPlayerService;
 import com.example.demo.player.utils.ResultUtils;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
