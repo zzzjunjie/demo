@@ -20,6 +20,6 @@ public class AddPlayerExperienceReq {
 	/**
 	 * 新增经验值
 	 */
-	private int addValue;
+	private long addValue;
 
 }

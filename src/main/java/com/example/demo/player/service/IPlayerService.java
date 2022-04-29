@@ -36,7 +36,7 @@ public interface IPlayerService {
 	 * @param addValue 经验新增值
 	 * @return TRUE:新增成功 FALSE:新增失败
 	 */
-	boolean addPlayerExperience(int id, int addValue);
+	boolean addPlayerExperience(int id, long addValue);
 
 	/**
 	 * 获取所有玩家信息

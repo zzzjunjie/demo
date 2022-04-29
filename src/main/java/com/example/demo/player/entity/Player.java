@@ -29,7 +29,7 @@ public class Player {
 	/**
 	 * 玩家经验
 	 */
-	private int experience;
+	private long experience;
 
 	public Player(int id, String name) {
 		this.id = id;
