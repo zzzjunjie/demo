@@ -1,7 +1,9 @@
-package com.example.demo.player.dto;
+package com.example.demo.player.request;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -10,6 +12,8 @@ import lombok.Data;
  * @author zhoujunjie
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddPlayerExperienceReq {
 
 	/**

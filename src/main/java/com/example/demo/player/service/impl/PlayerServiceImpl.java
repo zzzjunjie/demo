@@ -7,7 +7,6 @@ import com.example.demo.player.service.IPlayerService;
 import com.example.demo.player.utils.IdFactory;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,32 +22,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PlayerServiceImpl implements IPlayerService {
 
 	/**
-	 * 创建玩家名称
-	 */
-	private static final String NAME_FORMAT = "Hello-%s";
-
-	/**
-	 * 默认玩家个数
-	 */
-	private static final int playerNum = 20;
-
-	/**
 	 * 玩家列表缓存
 	 * K:玩家ID V:玩家信息
 	 */
 	private final Map<Integer, Player> playerMap = new ConcurrentHashMap<>();
-
-	/**
-	 * 初始化玩家缓存列表
-	 */
-	@PostConstruct
-	public void initPlayerMap() {
-		for (int i = 0; i < playerNum; i++) {
-			int id = IdFactory.getId();
-			Player player = new Player(id, String.format(NAME_FORMAT, id));
-			playerMap.put(player.getId(), player);
-		}
-	}
 
 	/**
 	 * 根据玩家ID获取玩家信息
@@ -80,6 +57,17 @@ public class PlayerServiceImpl implements IPlayerService {
 	}
 
 	/**
+	 * 添加玩家
+	 *
+	 * @param name 玩家名称
+	 * @return TRUE:添加成功
+	 */
+	boolean addPlayer(String name) {
+		Player player = new Player(IdFactory.getId(), name);
+		return playerMap.putIfAbsent(player.getId(), player) == null;
+	}
+
+	/**
 	 * 添加玩家经验
 	 *
 	 * @param id       玩家ID
@@ -98,22 +86,6 @@ public class PlayerServiceImpl implements IPlayerService {
 		long newExperience = player.getExperience() + addValue;
 		player.setExperience(newExperience);
 		return true;
-	}
-
-	/**
-	 * 获取所有玩家信息
-	 *
-	 * @return 所有玩家信息列表
-	 */
-	@Override
-	public List<Player> getAll() {
-		return new ArrayList<>(playerMap.values());
-	}
-
-	@Override
-	public Player addPlayer(String name) {
-		Player player = new Player(IdFactory.getId(), name);
-		return playerMap.put(player.getId(), player);
 	}
 
 }

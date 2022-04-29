@@ -1,4 +1,4 @@
-package com.example.demo.player.dto;
+package com.example.demo.player.request;
 
 
 import lombok.Data;

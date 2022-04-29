@@ -1,10 +1,9 @@
-package com.example.demo.player.dto;
+package com.example.demo.player.request;
 
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 
@@ -18,9 +17,8 @@ import java.util.List;
 public class GetPlayersReq {
 
 	/**
-	 * 玩家ID列表
+	 * 玩家ID列表 如果为null则获取所有玩家
 	 */
-	@NotEmpty
 	private List<Integer> ids;
 
 }

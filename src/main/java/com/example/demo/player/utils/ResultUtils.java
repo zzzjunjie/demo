@@ -17,37 +17,37 @@ public class ResultUtils {
 	/**
 	 * 状态码Key
 	 */
-	final static String CODE = "code";
+	public final static String CODE = "code";
 
 	/**
 	 * 成功状态码
 	 */
-	final static String SUCCESS_CODE = "200";
+	public final static String SUCCESS_CODE = "200";
 
 	/**
 	 * 失败状态码
 	 */
-	final static String ERROR_CODE = "500";
+	public final static String ERROR_CODE = "500";
 
 	/**
 	 * 成功消息
 	 */
-	final static String SUCCESS_MESSAGE = "success";
+	public final static String SUCCESS_MESSAGE = "success";
 
 	/**
 	 * 失败消息
 	 */
-	final static String ERROR_MESSAGE = "error";
+	public final static String ERROR_MESSAGE = "error";
 
 	/**
 	 * 数据Key
 	 */
-	final static String DATA = "data";
+	public final static String DATA = "data";
 
 	/**
 	 * 消息Key
 	 */
-	final static String MESSAGE = "message";
+	public final static String MESSAGE = "message";
 
 	/**
 	 * 返回成功的结果

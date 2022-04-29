@@ -4,6 +4,7 @@ package com.example.demo.player.service;
 import com.example.demo.player.entity.Player;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 
 /**
@@ -12,14 +13,6 @@ import java.util.List;
  * @author zhoujunjie
  */
 public interface IPlayerService {
-
-	/**
-	 * 根据玩家ID获取玩家信息
-	 *
-	 * @param id 玩家ID
-	 * @return 玩家信息
-	 */
-	Player getPlayer(int id);
 
 	/**
 	 * 获取玩家信息列表
@@ -39,18 +32,11 @@ public interface IPlayerService {
 	boolean addPlayerExperience(int id, long addValue);
 
 	/**
-	 * 获取所有玩家信息
+	 * 根据玩家ID获取玩家信息
 	 *
-	 * @return 所有玩家信息列表
-	 */
-	List<Player> getAll();
-
-	/**
-	 * 创建玩家
-	 *
-	 * @param name 玩家名称
+	 * @param id 玩家ID
 	 * @return 玩家信息
 	 */
-	Player addPlayer(String name);
+	Player getPlayer(int id);
 
 }
