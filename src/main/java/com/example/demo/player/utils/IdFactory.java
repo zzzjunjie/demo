@@ -10,7 +10,7 @@ public class IdFactory {
 
 	public synchronized static int getId() {
 		int id = ID++;
-		while ((id & 1) == 0) {
+		while ((id & 1) != 0) {
 			return id;
 		}
 		return 0;
