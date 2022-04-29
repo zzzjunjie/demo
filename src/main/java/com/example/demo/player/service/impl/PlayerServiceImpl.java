@@ -20,6 +20,7 @@ public class PlayerServiceImpl implements IPlayerService {
 	 */
 	@Override
 	public Player getPlayer(int id) {
+		// TODO 模拟问题修复
 		return new Player(id, "hello world");
 	}
 
