@@ -15,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 玩家操作实现
+ *
+ * @author zhoujunjie
  */
 @Service
 public class PlayerServiceImpl implements IPlayerService {
@@ -94,6 +96,16 @@ public class PlayerServiceImpl implements IPlayerService {
 		int newExperience = player.getExperience() + addValue;
 		player.setExperience(newExperience);
 		return true;
+	}
+
+	/**
+	 * 获取所有玩家信息
+	 *
+	 * @return 所有玩家信息列表
+	 */
+	@Override
+	public List<Player> getAll() {
+		return new ArrayList<>(playerMap.values());
 	}
 
 }

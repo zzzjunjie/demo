@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * 玩家基础信息
+ *
+ * @author zhoujunjie
  */
 @Data
 @AllArgsConstructor

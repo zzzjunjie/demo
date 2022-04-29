@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * 玩家操作接口
+ *
+ * @author zhoujunjie
  */
 public interface IPlayerService {
 
@@ -36,4 +38,10 @@ public interface IPlayerService {
 	 */
 	boolean addPlayerExperience(int id, int addValue);
 
+	/**
+	 * 获取所有玩家信息
+	 *
+	 * @return 所有玩家信息列表
+	 */
+	List<Player> getAll();
 }

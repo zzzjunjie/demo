@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 玩家操作控制器API
  *
- * @author Administrator
+ * @author zhoujunjie
  */
 @RestController
 @RequestMapping("/player")

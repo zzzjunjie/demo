@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+/**
+ * 全局拦截异常处理器
+ *
+ * @author zhoujunjie
+ */
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandle {
