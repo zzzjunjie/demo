@@ -30,6 +30,6 @@ public interface IPlayerServerBridging {
 	 * @param addValue 添加的经验
 	 * @return 添加结果回调
 	 */
-	CompletableFuture<Boolean> asyncAddPlayerExperience(int id, int addValue);
+	CompletableFuture<Boolean> asyncAddPlayerExperience(int id, long addValue);
 
 }

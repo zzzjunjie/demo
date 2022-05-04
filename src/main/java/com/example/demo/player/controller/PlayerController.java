@@ -48,9 +48,9 @@ public class PlayerController {
 	public String addPlayerExperience(@RequestBody AddPlayerExperienceReq req) {
 		boolean b = playerService.addPlayerExperience(req.getId(), req.getAddValue());
 		if (b) {
-			return ResultUtils.successWithData(ResultConst.ADD_SUCCESS);
+			return ResultUtils.successWithData(ResultConst.ADD_EXPERIENCE_SUCCESS);
 		} else {
-			return ResultUtils.errorWithData(ResultConst.ERROR_SUCCESS);
+			return ResultUtils.errorWithData(ResultConst.ADD_EXPERIENCE_ERROR);
 		}
 	}
 
@@ -60,7 +60,7 @@ public class PlayerController {
 	 * @param id 玩家ID
 	 * @return 玩家信息
 	 */
-	@RequestMapping(RequestPathConst.PlayerController.GET_PLAYER)
+	@GetMapping(RequestPathConst.PlayerController.GET_PLAYER)
 	public String getPlayer(@RequestParam int id) {
 		Player player = playerService.getPlayer(id);
 		return ResultUtils.successWithData(player);

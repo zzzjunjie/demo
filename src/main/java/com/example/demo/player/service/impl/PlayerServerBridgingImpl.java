@@ -29,10 +29,11 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class PlayerServerBridgingImpl implements IPlayerServerBridging {
 
-	private final String URL = "http://localhost:";
-
-	@Value("${server.port:8083}")
-	public String port;
+	/**
+	 * URL地址
+	 */
+	@Value("${player.address:localhost}")
+	public String address;
 
 	@Resource
 	private RestTemplate restTemplate;
@@ -47,7 +48,8 @@ public class PlayerServerBridgingImpl implements IPlayerServerBridging {
 	public Player getPlayerById(int id) {
 		Map<String, Integer> reqParam = new HashMap<>();
 		reqParam.put("id", id);
-		ResponseEntity<String> playerResponseEntity = this.restTemplate.getForEntity(URL + port + RequestPathConst.PlayerController.GET_PLAYERS, String.class, reqParam);
+		// 发送http请求玩家结果信息
+		ResponseEntity<String> playerResponseEntity = this.restTemplate.getForEntity(address + RequestPathConst.PlayerController.GET_PLAYER, String.class, reqParam);
 		if (!playerResponseEntity.getStatusCode().is2xxSuccessful()) {
 			log.error("请求获取玩家数据异常异常,玩家ID:[{}],异常消息:[{}]", id, playerResponseEntity.getBody());
 			return null;
@@ -60,9 +62,9 @@ public class PlayerServerBridgingImpl implements IPlayerServerBridging {
 		Map map = JSONObject.parseObject(body, Map.class);
 		String code = (String) map.get(ResultUtils.CODE);
 		if (code.equals(ResultUtils.SUCCESS_CODE)) {
-			String data = (String) map.get(ResultUtils.DATA);
-			if (StringUtils.isNoneBlank(data)) {
-				return JSONObject.parseObject(data, Player.class);
+			JSONObject data = (JSONObject) map.get(ResultUtils.DATA);
+			if (data != null) {
+				return data.toJavaObject(Player.class);
 			}
 		}
 		log.error("请求获取玩家数据异常,玩家ID:[{}],返回状态码:[{}],返回数据:[{}]", id, code, body);
@@ -77,13 +79,13 @@ public class PlayerServerBridgingImpl implements IPlayerServerBridging {
 	 * @return 添加结果回调
 	 */
 	@Override
-	public CompletableFuture<Boolean> asyncAddPlayerExperience(int id, int addValue) {
-		return CompletableFuture.supplyAsync(() -> addPlayerExperience1(id, addValue));
+	public CompletableFuture<Boolean> asyncAddPlayerExperience(int id, long addValue) {
+		return CompletableFuture.supplyAsync(() -> addPlayerExperience(id, addValue));
 	}
 
-	private Boolean addPlayerExperience1(int id, int addValue) {
+	private Boolean addPlayerExperience(int id, long addValue) {
 		AddPlayerExperienceReq addPlayerExperienceReq = new AddPlayerExperienceReq(id, addValue);
-		ResponseEntity<String> playerResponseEntity = this.restTemplate.postForEntity(URL + port + RequestPathConst.PlayerController.ADD_PLAYER_EXPERIENCE, addPlayerExperienceReq, String.class);
+		ResponseEntity<String> playerResponseEntity = this.restTemplate.postForEntity(address + RequestPathConst.PlayerController.ADD_PLAYER_EXPERIENCE, addPlayerExperienceReq, String.class);
 		if (!playerResponseEntity.getStatusCode().is2xxSuccessful()) {
 			log.error("请求新增玩家经验异常,玩家ID:[{}],异常消息:[{}]", id, playerResponseEntity.getBody());
 			return false;
@@ -96,6 +98,15 @@ public class PlayerServerBridgingImpl implements IPlayerServerBridging {
 		Map map = JSONObject.parseObject(body, Map.class);
 		String code = (String) map.get(ResultUtils.CODE);
 		return code.equals(ResultUtils.SUCCESS_CODE);
+	}
+
+	/**
+	 * 替换restTemplate
+	 *
+	 * @param restTemplate 新的restTemplate
+	 */
+	void setRestTemplate(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
 	}
 
 }

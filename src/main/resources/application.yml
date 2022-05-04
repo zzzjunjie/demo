@@ -1,2 +1,6 @@
 server:
   port: 8083
+
+# 玩家对接系统地址
+player:
+  address: http://localhost:${server.port}
