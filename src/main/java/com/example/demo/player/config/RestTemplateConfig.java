@@ -19,6 +19,12 @@ import java.nio.charset.StandardCharsets;
 @Configuration
 public class RestTemplateConfig {
 
+	/**
+	 * RestTemplate Bean注册
+	 *
+	 * @param factory 客户端请求工厂
+	 * @return RestTemplate
+	 */
 	@Bean
 	public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
 		RestTemplate restTemplate = new RestTemplate(factory);
@@ -26,10 +32,17 @@ public class RestTemplateConfig {
 		return restTemplate;
 	}
 
+	/**
+	 * ClientHttpRequestFactory Bean注册
+	 *
+	 * @return ClientHttpRequestFactory Bean
+	 */
 	@Bean
 	public ClientHttpRequestFactory clientHttpRequestFactory() {
 		SimpleClientHttpRequestFactory simpleClientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+		// 读取超时时间
 		simpleClientHttpRequestFactory.setReadTimeout(5000);
+		// 连接超时时间
 		simpleClientHttpRequestFactory.setConnectTimeout(5000);
 		return simpleClientHttpRequestFactory;
 	}
